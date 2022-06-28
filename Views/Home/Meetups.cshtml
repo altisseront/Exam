@@ -1,0 +1,41 @@
+
+<div class="row">
+    <div class="col-6"><h1>Dojo Meet Up Center</h1></div>
+    <div class="col-6"><h1>Welcome, @ViewBag.LoggedIn.Name  <a href="/logout">Logout</a></h1></div>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Meet Up</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Event Coordinator</th>
+            <th scope="col">No. of Participants</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MeetUp m in ViewBag.AllMeetUps)
+        {     
+        @if(m.DateAndTime > DateTime.Now){   
+        <tr>
+            <td><a href="/meetups/@m.MeetUpId">@m.Title</a></td>
+            <td>@m.DateAndTime</td>
+            <td>@m.Duration @m.Unit</td>
+            <td>@m.Coordinator.Name</td>
+            <td>@m.UsersParticipating.Count()</td>
+            <td>@if(m.Coordinator.UserId == ViewBag.LoggedIn.UserId)
+                {<a href="/delete/@m.MeetUpId">Delete</a>}
+                else if (@m.UsersParticipating.Any(a => a.UserId == ViewBag.LoggedIn.UserId))
+                {
+                    <a href="/leave/@m.MeetUpId">leave</a>
+                }
+                else{
+                    <a href="/join/@m.MeetUpId">join</a>
+                }
+            </td>
+        </tr>}
+        }
+    </tbody>
+</table>
+<a href="/meetups/new">Add New Activity</a>

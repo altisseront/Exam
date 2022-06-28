@@ -1,0 +1,33 @@
+@model MeetUp
+<h1>Create a Meetup</h1>
+<div class="text-right"><a href="/meetups">Home</a> <a href="/logout">Logout</a></div>
+            <form action="/createmeetup" method="post">
+                <div class="form-group">
+                    <label for="Title">Title</label>
+                    <input asp-for="Title" class="form-control">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="DateAndTime">Date and Time</label>
+                    <input asp-for="DateAndTime" class="form-control">
+                    <span asp-validation-for="DateAndTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Duration">Duration</label>
+                    <input asp-for="Duration" class="form-control">
+                    <select asp-for="Unit">
+                        <option value="Hours">Hours</option>
+                        <option value="Minutes">Minutes</option>
+                        <option value="Days">Days</option>
+                    </select>
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Description">Description</label>
+                    <input asp-for="Description" class="form-control">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add Meetup" class="btn btn-warning">
+                </div>
+            </form>
